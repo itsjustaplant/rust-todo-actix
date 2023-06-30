@@ -1,10 +1,10 @@
-mod models;
-mod endpoints;
 mod db;
+mod endpoints;
+mod models;
 mod server;
 
 use futures::join;
-use actix_web::{ main };
+use actix_web::{main};
 
 #[main]
 async fn main() -> std::io::Result<()> {

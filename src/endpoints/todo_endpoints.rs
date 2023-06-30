@@ -1,7 +1,13 @@
-use actix_web::{ get, post, put, web::{ Json }, Error };
-use mongodb:: { bson::{doc, oid::ObjectId } };
+use actix_web::{
+    get, post, put,
+    web::{Json},
+    Error,
+};
+use mongodb::{
+    bson::{doc, oid::ObjectId},
+};
 
-use crate::models::todo_models::{ ToDoModel };
+use crate::models::todo_models::{ToDoModel};
 use crate::db;
 
 #[get("/todo")]

@@ -1,37 +1,43 @@
-use mongodb::{ Database, Collection, bson::{ doc, Document }, options::ClientOptions, Client, error::{ Error } };
+use mongodb::{
+    Database, Collection,
+    bson::{doc, Document},
+    options::ClientOptions,
+    Client,
+    error::{Error},
+};
 
 async fn get_client() -> Result<Client, Error> {
-  let uri = "mongodb://localhost:27017";
-  let client_options = ClientOptions::parse(uri).await?;
-  let client = Client::with_options(client_options)?;
+    let uri = "mongodb://localhost:27017";
+    let client_options = ClientOptions::parse(uri).await?;
+    let client = Client::with_options(client_options)?;
 
-  Ok(client)
+    Ok(client)
 }
 
 async fn get_db() -> Result<Database, Error> {
-  let client = get_client().await?;
-  let db = client.database("todoDB");
+    let client = get_client().await?;
+    let db = client.database("todoDB");
 
-  Ok(db)
+    Ok(db)
 }
 
 pub async fn get_collection() -> Result<Collection<Document>, Error> {
-  let db = get_db().await?;
-  let collection = db.collection("tasks");
+    let db = get_db().await?;
+    let collection = db.collection("tasks");
 
-  Ok(collection)
+    Ok(collection)
 }
 
 // test connection
 pub async fn test_db() -> mongodb::error::Result<()> {
-  let client = get_client().await?;
+    let client = get_client().await?;
 
-  client
-      .database("todoDB")
-      .run_command(doc! {"ping": 1}, None)
-      .await?;
+    client
+        .database("todoDB")
+        .run_command(doc! {"ping": 1}, None)
+        .await?;
 
-  println!("Pinged DB");
+    println!("Pinged DB");
 
-  Ok(())
+    Ok(())
 }
